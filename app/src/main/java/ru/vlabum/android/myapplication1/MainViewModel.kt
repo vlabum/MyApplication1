@@ -8,18 +8,21 @@ class MainViewModel : ViewModel() {
 
     var repo: MainRepo = MainRepo()
 
-    private val viewStateLiveData: MutableLiveData<MainRepo> = MutableLiveData()
+    private val veiwHelloWorld: MutableLiveData<String> = MutableLiveData()
+
+    private val veiwSaved: MutableLiveData<String> = MutableLiveData()
 
     init {
-        viewStateLiveData.value = repo
+        veiwHelloWorld.value = repo.getHello()
     }
 
-    fun viewState(): LiveData<MainRepo> = viewStateLiveData
+    fun viewHelloWorld(): LiveData<String> = veiwHelloWorld
+
+    fun viewSavedText(): LiveData<String> = veiwSaved
 
     fun setSave(text: String?) {
         repo.setSaved(text)
-        // данную штуку воткнул, чтобы наблюдатель увидел, возможно что-то не так сделал
-        viewStateLiveData.value = repo
+        veiwSaved.value = repo.getSaved()
     }
 
 }

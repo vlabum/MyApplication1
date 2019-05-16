@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
-import ru.vlabum.android.myapplication1.MainViewModel
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,9 +17,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
-        viewModel.viewState().observe(this, Observer { value ->
-            Toast.makeText(this, value?.getHello(), Toast.LENGTH_SHORT).show()
-            textView2.text = value?.getSaved()
+        viewModel.viewHelloWorld().observe(this, Observer { value ->
+            Toast.makeText(this, value, Toast.LENGTH_SHORT).show()
+        })
+        viewModel.viewSavedText().observe(this, Observer { value ->
+            Toast.makeText(this, value, Toast.LENGTH_SHORT).show()
+            textView2.text = value
         })
     }
 
